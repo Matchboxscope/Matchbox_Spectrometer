@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>ipCam</title>
+</head>
+
+<body>
+    <h1>ipCam</h1>
+    <img id="motionjpeg" src="http://0.0.0.0:8123/mjpeg" />
+    <script src="motionjpeg.js"></script>
+    <script>
+        //Using jQuery for simplicity
+
+        $(document).ready(function() {
+            motionjpeg("#motionjpeg"); // Use the function on the image
+        });
+    </script>
+</body>
+
+</html>
