@@ -3,6 +3,8 @@
 
 <head>
 
+	<?php header("Access-Control-Allow-Origin: http://0.0.0.0:8123"); ?>
+
 	<!-- Required meta tags -->
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -20,12 +22,6 @@
 	<link rel="stylesheet" href="assets/css/style.css">
 	<link rel="stylesheet" href="assets/css/media-queries.css">
 
-	<!-- Favicon and touch icons -->
-	<link rel="shortcut icon" href="assets/ico/favicon.png">
-	<link rel="apple-touch-icon-precomposed" sizes="144x144" href="assets/ico/apple-touch-icon-144-precomposed.png">
-	<link rel="apple-touch-icon-precomposed" sizes="114x114" href="assets/ico/apple-touch-icon-114-precomposed.png">
-	<link rel="apple-touch-icon-precomposed" sizes="72x72" href="assets/ico/apple-touch-icon-72-precomposed.png">
-	<link rel="apple-touch-icon-precomposed" href="assets/ico/apple-touch-icon-57-precomposed.png">
 
 </head>
 
@@ -43,45 +39,13 @@
 		<!-- Content -->
 		<div class="content">
 
-
-
-			<!-- Top content -->
-			<div class="top-content section-container" id="top-content">
-				<div class="container">
-					<div class="row">
-						<div class="col col-md-10 offset-md-1 col-lg-8 offset-lg-2">
-							<h1 class="wow fadeIn">Online Viewer for <strong>3DFiberSpectrometer</strong></h1>
-							<div class="description wow fadeInLeft">
-								<p>
-									Welcome to the GaudiLabs online viewer for the fully 3D printed fiber
-									spectrometer.<br> The 3DFiberSpectrometer is easy to build and functional
-									instrument.
-
-								</p>
-							</div>
-							<div class="buttons wow fadeInUp">
-								<a class="btn btn-primary btn-customized	"
-									href="https://gaudishop.ch/index.php/product/3d-printed-fiber-spectrometer-kit/"
-									role="button">
-									<i class="fas fa-shopping-cart"></i> Buy Kit
-								</a>
-								<a class="btn btn-primary btn-customized-2"
-									href="http://www.gaudi.ch/GaudiLabs/?page_id=825" role="button">
-									<i class="fas fa-book-open"></i> Instructions
-								</a>
-							</div>
-						</div>
-					</div>
-				</div>
-			</div>
-
 			<!-- Section 1 -->
 			<div class="section-1-container section-container" id="section-1">
 				<div class="container">
 					<div class="row">
 
 						<div class="col section-1 section-description wow fadeIn">
-							<h2>Spectrometer</h2>
+							<h2>ESPectrometer 32</h2>
 							<div class="divider-1 wow fadeInUp"><span></span></div>
 						</div>
 					</div>
@@ -97,15 +61,7 @@
 								<div class="camera">
 
 									<h1>ipCam</h1>
-									<img id="motionjpeg" src="http://0.0.0.0:8123/mjpeg" />
-									<script src="motionjpeg.js"></script>
-									<script>
-										//Using jQuery for simplicity
-								
-										$(document).ready(function() {
-											motionjpeg("#motionjpeg"); // Use the function on the image
-										});
-									</script>
+									<img id="motionjpeg" src="http://192.168.4.1:81/stream.mjpeg" crossorigin="anonymous"/>
 
 								</div>
 								<canvas id="canvas">

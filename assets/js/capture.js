@@ -459,6 +459,7 @@
 
   function startup() {
     motionjpeg = document.getElementById('motionjpeg');
+    //motionjpeg.crossOrigin = "Anonymous";
     canvas = document.getElementById('canvas');
     curve = document.getElementById('curve');
 
@@ -478,123 +479,111 @@
     });
     //http://192.168.2.191:8123/mjpeg
     //motionjpeg.src = "http://192.168.4.1:81/stream.mjpeg"
-
-    motionjpeg.addEventListener('canplay', function (ev) {
-      if (!streaming) {
-        height = motionjpeg.motionjpegHeight / (motionjpeg.motionjpegWidth / width);
-
-        // Firefox currently has a bug where the height can't be read from
-        // the motionjpeg, so we will make assumptions if this happens.
-
-        if (isNaN(height)) {
-          height = width / (4 / 3);
-        }
-
-        motionjpeg.setAttribute('width', width);
-        motionjpeg.setAttribute('height', height);
-        canvas.setAttribute('width', width);
-        canvas.setAttribute('height', height);
-        //  curve.setAttribute('width', 222);
-        //   curve.setAttribute('height', 222);
-
-
-
-
-
-        getCookies();
-
-        setElements();
-
-
-        streaming = true;
-
-        var intervalId = window.setInterval(function () {
-          takepicture();
-        }, 200);
-
-
-        document.getElementById('switch-colorbar').addEventListener('change', function (e) {
-
-          if (e.target.checked) {
-            showColorBar = true;
-          } else {
-            showColorBar = false;
-          }
-        });
-
-
-        document.getElementById('switch-colors').addEventListener('change', function (e) {
-
-          if (e.target.checked) {
-            color_mode = true;
-          } else {
-            color_mode = false;
-          }
-        });
-
-
-
-        document.getElementById('minX').addEventListener('change', function () {
-
-          var inputValue = this.value;
-          mySettings.minX = parseInt(inputValue);
-          if ((mySettings.maxX - mySettings.minX) < 20) mySettings.minX = mySettings.maxX - 20;
-          setElements();
-        });
-
-
-        document.getElementById('maxX').addEventListener('change', function () {
-
-          var inputValue = this.value;
-          mySettings.maxX = parseInt(inputValue);
-          if ((mySettings.maxX - mySettings.minX) < 20) mySettings.maxX = mySettings.minX + 20;
-          setElements();
-        });
-
-        document.getElementById('maxY').addEventListener('change', function () {
-
-          var inputValue = this.value;
-          mySettings.maxY = parseInt(inputValue);
-          if ((mySettings.maxY) < 20) mySettings.maxY = 20;
-          if ((mySettings.maxY) > 300) mySettings.maxY = 300;
-          setElements();
-        });
-
-        document.getElementById('ifactor').addEventListener('change', function () {
-
-          var inputValue = this.value;
-          ifactor = parseFloat(inputValue);
-          if ((ifactor) < 0) ifactor = 0;
-          if ((ifactor) > 0.9) ifactor = 0.9;
-          setElements();
-
-
-        });
-
-
-
-
-        document.getElementById('marker1').addEventListener('change', function () {
-
-          var inputValue = this.value;
-          marker1X = parseInt(inputValue);
-
-          console.log(waveToRGB(inputValue));
-
-        });
-
-        document.getElementById('marker2').addEventListener('change', function () {
-
-          var inputValue = this.value;
-          marker2X = parseInt(inputValue);
-
-        });
-
-
-      }
-    }, false);
-
     */
+
+    height = motionjpeg.height
+    // Firefox currently has a bug where the height can't be read from
+    // the motionjpeg, so we will make assumptions if this happens.
+
+    canvas.setAttribute('width', width);
+    canvas.setAttribute('height', height);
+    //  curve.setAttribute('width', 222);
+    //   curve.setAttribute('height', 222);
+
+
+
+
+
+    getCookies();
+
+    setElements();
+
+
+    var intervalId = window.setInterval(function () {
+      takepicture();
+    }, 200);
+
+
+    document.getElementById('switch-colorbar').addEventListener('change', function (e) {
+
+      if (e.target.checked) {
+        showColorBar = true;
+      } else {
+        showColorBar = false;
+      }
+    });
+
+
+    document.getElementById('switch-colors').addEventListener('change', function (e) {
+
+      if (e.target.checked) {
+        color_mode = true;
+      } else {
+        color_mode = false;
+      }
+    });
+
+
+
+    document.getElementById('minX').addEventListener('change', function () {
+
+      var inputValue = this.value;
+      mySettings.minX = parseInt(inputValue);
+      if ((mySettings.maxX - mySettings.minX) < 20) mySettings.minX = mySettings.maxX - 20;
+      setElements();
+    });
+
+
+    document.getElementById('maxX').addEventListener('change', function () {
+
+      var inputValue = this.value;
+      mySettings.maxX = parseInt(inputValue);
+      if ((mySettings.maxX - mySettings.minX) < 20) mySettings.maxX = mySettings.minX + 20;
+      setElements();
+    });
+
+    document.getElementById('maxY').addEventListener('change', function () {
+
+      var inputValue = this.value;
+      mySettings.maxY = parseInt(inputValue);
+      if ((mySettings.maxY) < 20) mySettings.maxY = 20;
+      if ((mySettings.maxY) > 300) mySettings.maxY = 300;
+      setElements();
+    });
+
+    document.getElementById('ifactor').addEventListener('change', function () {
+
+      var inputValue = this.value;
+      ifactor = parseFloat(inputValue);
+      if ((ifactor) < 0) ifactor = 0;
+      if ((ifactor) > 0.9) ifactor = 0.9;
+      setElements();
+
+
+    });
+
+
+
+
+    document.getElementById('marker1').addEventListener('change', function () {
+
+      var inputValue = this.value;
+      marker1X = parseInt(inputValue);
+
+      console.log(waveToRGB(inputValue));
+
+    });
+
+    document.getElementById('marker2').addEventListener('change', function () {
+
+      var inputValue = this.value;
+      marker2X = parseInt(inputValue);
+
+    });
+
+
+
+
     canvas.addEventListener('click', function (ev) {
       // Get the x and y coordinates of the click event
       var rect = canvas.getBoundingClientRect();
@@ -954,12 +943,8 @@
     if (width && height) {
       canvas.width = width;
       canvas.height = height;
+      //motionjpeg.setAttribute('crossOrigin', '');
       context.drawImage(motionjpeg, 0, 0, width, height);
-
-
-
-
-
 
       var ctx = curve.getContext('2d');
 
